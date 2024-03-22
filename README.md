@@ -27,9 +27,5 @@
 - Implemented Sign Out
 - Updated Profile
 - Fetch from TMDB Movies
-<<<<<<< HEAD
 - unsubscribe to the onAuthStateChanged callback
-- 
-=======
-  
->>>>>>> ec1809a86a6609f6eb1495b6f2d068f34f90a13c
+
