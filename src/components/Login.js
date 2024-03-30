@@ -122,6 +122,20 @@ const Login = () => {
                         {isSignInForm? "Sign up now.": "Sign in now"}
                 </a>
             </p>
+            <p 
+                className=" md:text-lg text-[#c0bbba] ">
+                    Testing email and password:
+            </p>
+            <div className="flex justify-between">
+            <p 
+                className=" md:text-lg text-[#c0bbba] ">
+                    mhussain@gmail.com
+            </p>
+            <p 
+                className=" md:text-lg text-[#c0bbba] ">
+                    Pqrst@12
+            </p>
+            </div>
         </form>
     </div>
   )
