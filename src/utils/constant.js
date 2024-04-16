@@ -20,4 +20,8 @@ export const  IMAGE_URL =
                 "https://image.tmdb.org/t/p/w500";
 
 export const OPENAI_KEY = process.env.REACT_APP_OPENAI_KEY;
+
+
+
+
                 

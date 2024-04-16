@@ -1,6 +1,7 @@
 import SearchIcon from '@mui/icons-material/Search';
 import { useRef } from 'react';
-import openai from '../utils/openai';
+// import openai from '../utils/openai';
+import { genAI } from '../utils/geminAi';
 import { API_OPTIONS } from '../utils/constant';
 import { useDispatch } from 'react-redux';
 import { addGptMovieResult } from '../utils/gptSlice';
@@ -25,22 +26,36 @@ const GptSearchBar =  () => {
                      + searchText.current.value + 
                      ". Only give me names of five movies, comma separated like the example results given ahead, Example Result: 3-idiots, jawan, bajrangi bhaijaan, taare zameen par, sholay." 
 
-    const gptResult = await openai.chat.completions.create({
-        messages: [{ role: 'user', content: gptQuery }],
-        model: 'gpt-3.5-turbo',
-      });
+                     
 
-      if(!gptResult.choices){
+    // const gptResult = await openai.chat.completions.create({
+    //     messages: [{ role: 'user', content: gptQuery }],
+    //     model: 'gpt-3.5-turbo',
+    //   });
+
+    const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+
+    const result = await model.generateContent(gptQuery);
+
+    const response = await result.response;
+
+    const text = response.text();
+
+    const geminMovies = text.split(",")
+
+    console.log(geminMovies);
+
+      if(!text){
         //TODO: Error Handling...
       }
 
-      const gptMovies = gptResult.choices?.[0].message?.content.split(",");
+      // const gptMovies = gptResult.choices?.[0].message?.content.split(",");
 
-      const promiseResult = gptMovies.map((movie)=> searchMovieTMDB(movie));
+      const promiseResult = geminMovies.map((movie)=> searchMovieTMDB(movie));
 
       const TMDBMovie = await Promise.all(promiseResult);
 
-      dispatch(addGptMovieResult({movieName: gptMovies ,movieList: TMDBMovie}));
+      dispatch(addGptMovieResult({movieName: geminMovies ,movieList: TMDBMovie}));
   }
 
   return (
